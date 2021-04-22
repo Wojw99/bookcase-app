@@ -1,38 +1,20 @@
-import 'package:bookcase_app/viewmodels/books_vm.dart';
-import 'package:bookcase_app/viewmodels/stats_vm.dart';
-import 'package:bookcase_app/views/pages/books_page.dart';
-import 'package:bookcase_app/views/pages/stats_page.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
+import 'package:bookcase_app/utils/enums.dart';
 
 class ViewHelper {
-  static void navigateToPage(BuildContext context, int pageNumber) {
-    if (pageNumber == 1) {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, anim1, anim2) {
-            return ChangeNotifierProvider(
-              create: (context) => StatsViewModel(),
-              child: StatsPage(),
-            );
-          },
-          transitionDuration: Duration(seconds: 0),
-        ),
-      );
-    } else if (pageNumber == 0) {
-      Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, anim1, anim2) {
-            return ChangeNotifierProvider(
-              create: (context) => BooksViewModel(),
-              child: BooksPage(),
-            );
-          },
-          transitionDuration: Duration(seconds: 0),
-        ),
-      );
-    }
+  static String getImgSourceForGenre(Genre genre) {
+    if (genre == Genre.UrbanFantasy)
+      return 'assets/img/i_company.png';
+    else if (genre == Genre.HighFantasy)
+      return 'assets/img/i_dragon.png';
+    else if (genre == Genre.HistoricalNovel)
+      return 'assets/img/i_knight.png';
+    else if (genre == Genre.SciFi)
+      return 'assets/img/i_ship_space.png';
+    else if (genre == Genre.LightFantasy)
+      return 'assets/img/i_sword.png';
+    else if (genre == Genre.Horror)
+      return 'assets/img/i_thriller.png';
+    else // (genre == Genre.Other)
+      return 'assets/img/i_thriller.png';
   }
 }

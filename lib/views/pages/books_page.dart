@@ -3,6 +3,7 @@ import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/books_vm.dart';
 import 'package:bookcase_app/views/pages/stats_page.dart';
 import 'package:bookcase_app/views/view_helper.dart';
+import 'package:bookcase_app/views/widgets/row_book.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,35 +11,34 @@ import 'package:provider/provider.dart';
 class BooksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _viewModel = Provider.of<BooksViewModel>(context, listen: true);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(kBookcase),
-        backgroundColor: kColorDark,
-      ),
+      /// * * * * * * BODY * * * * * *
       body: Container(
-        color: Colors.green,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text('To stats.'),
-          ],
+        color: kColorDark,
+        child: ListView.builder(
+          itemCount: _viewModel.books.length,
+          itemBuilder: (context, index) {
+            final book = _viewModel.books[index];
+            return BookRow(
+              title: book.title,
+              series: book.series,
+              author: book.author,
+              date: book.dateLastEdition,
+              genre: book.genre,
+            );
+          },
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        onTap: (index) {
-          ViewHelper.navigateToPage(context, index);
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: kBookcase,
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: kStats,
-          ),
-        ],
+
+      /// * * * * * * F BUTTON * * * * * *
+      floatingActionButton: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: FloatingActionButton(
+          backgroundColor: kColorMain,
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
       ),
     );
   }

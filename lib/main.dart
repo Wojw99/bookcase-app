@@ -1,6 +1,10 @@
+import 'package:bookcase_app/utils/colors.dart';
+import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/books_vm.dart';
+import 'package:bookcase_app/viewmodels/menu_vm.dart';
 import 'package:bookcase_app/viewmodels/stats_vm.dart';
 import 'package:bookcase_app/views/pages/books_page.dart';
+import 'package:bookcase_app/views/pages/menu_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,13 +16,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: kAppTitle,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
       ),
-      home: ChangeNotifierProvider(
-        create: (context) => BooksViewModel(),
-        child: BooksPage(),
+      home: MultiProvider(
+        providers: [
+          ChangeNotifierProvider<MenuViewModel>(create: (_) => MenuViewModel()),
+          ChangeNotifierProvider<BooksViewModel>(
+              create: (_) => BooksViewModel()),
+          ChangeNotifierProvider<StatsViewModel>(
+              create: (_) => StatsViewModel()),
+        ],
+        builder: (context, widget) => MenuPage(),
       ),
     );
   }
