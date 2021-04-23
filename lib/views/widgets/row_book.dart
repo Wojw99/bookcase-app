@@ -52,8 +52,7 @@ class BookRow extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    // TODO: row date
-                    '22.04',
+                    ViewHelper.getTextForDateTime(date),
                     style: kRowHeaderStyle,
                   ),
                 ],

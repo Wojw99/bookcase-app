@@ -1,6 +1,7 @@
 import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/books_vm.dart';
+import 'package:bookcase_app/views/pages/adding_page.dart';
 import 'package:bookcase_app/views/pages/stats_page.dart';
 import 'package:bookcase_app/views/view_helper.dart';
 import 'package:bookcase_app/views/widgets/row_book.dart';
@@ -36,7 +37,12 @@ class BooksPage extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         child: FloatingActionButton(
           backgroundColor: kColorMain,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddingPage()),
+            );
+          },
           child: Icon(Icons.add),
         ),
       ),
