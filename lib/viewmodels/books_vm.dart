@@ -1,44 +1,56 @@
+import 'package:bookcase_app/utils/test_database.dart';
 import 'package:bookcase_app/models/book.dart';
-import 'package:bookcase_app/utils/enums.dart';
+import 'package:bookcase_app/utils/types/readingStates.dart';
+import 'package:bookcase_app/views/pages/adding_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'adding_vm.dart';
 
 class BooksViewModel extends ChangeNotifier {
-  final books = [
-    Book(
-      id: 'asd34asd',
-      title: 'Rytm Wojny',
-      series: 'Archiwum Burzowego Światła',
-      author: 'Brandon Sanderson',
-      dateLastEdition: DateTime.utc(2021, 2, 13),
-      dateAdded: DateTime.utc(2021, 2, 13),
-      genre: Genre.HighFantasy,
-    ),
-    Book(
-      id: 'asd34asd4345',
-      title: 'Odprysk świtu',
-      series: 'Archiwum Burzowego Światła',
-      author: 'Brandon Sanderson',
-      dateLastEdition: DateTime.utc(2021, 1, 3),
-      dateAdded: DateTime.utc(2021, 1, 3),
-      genre: Genre.HighFantasy,
-    ),
-    Book(
-      id: 'asd34asd4',
-      title: 'Kamień Filozoficzny',
-      series: 'Harry Potter',
-      author: 'J. K. Rowling',
-      dateLastEdition: DateTime.utc(2021, 1, 22),
-      dateAdded: DateTime.utc(2021, 1, 22),
-      genre: Genre.UrbanFantasy,
-    ),
-    Book(
-      id: 'asd34asd5',
-      title: 'Gra o Tron',
-      series: 'Pieśń Lodu i Ognia',
-      author: 'George R. R. Martin',
-      dateLastEdition: DateTime.utc(2021, 3, 28),
-      dateAdded: DateTime.utc(2021, 3, 28),
-      genre: Genre.HighFantasy,
-    ),
-  ];
+  List<Book> _books = TestDatabase.books;
+  List<Book> get books => getFilteredBooks();
+
+  int _index = 1;
+  int get index => _index;
+
+  void navigateToAddingPage(BuildContext context) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider<AddingViewModel>(
+          create: (context) => AddingViewModel(),
+          builder: (context, widget) => AddingPage(),
+        ),
+      ),
+    );
+    notifyListeners();
+  }
+
+  List<Book> getFilteredBooks() {
+    if (_index == 0) {
+      return _books
+          .where((element) => element.readingState == ReadingStates.abandoned)
+          .toList();
+    } else if (_index == 1) {
+      return _books
+          .where((element) => element.readingState == ReadingStates.ended)
+          .toList();
+    } else {
+      // if(_index == 2)
+      return _books
+          .where((element) => element.readingState == ReadingStates.planning)
+          .toList();
+    }
+  }
+
+  void setIndex(int value) {
+    _index = value;
+    notifyListeners();
+  }
+
+  void reload() {
+    notifyListeners();
+  }
 }

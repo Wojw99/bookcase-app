@@ -1,5 +1,6 @@
 import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
+import 'package:bookcase_app/viewmodels/adding_vm.dart';
 import 'package:bookcase_app/viewmodels/menu_vm.dart';
 import 'package:bookcase_app/views/pages/books_page.dart';
 import 'package:bookcase_app/views/pages/stats_page.dart';
@@ -17,13 +18,6 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _viewModel = Provider.of<MenuViewModel>(context, listen: true);
     return Scaffold(
-      /// * * * * * * APP BAR * * * * * *
-      appBar: AppBar(
-        title: Text(kAppTitle),
-        elevation: 0.0,
-        backgroundColor: kColorDark,
-      ),
-
       /// * * * * * * BODY * * * * * *
       body: pages[_viewModel.currentIndex],
 

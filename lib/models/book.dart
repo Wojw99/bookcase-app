@@ -1,16 +1,17 @@
-import 'package:bookcase_app/utils/enums.dart';
+import 'package:bookcase_app/utils/types/genre.dart';
+import 'package:bookcase_app/utils/types/readingState.dart';
 import 'package:flutter/cupertino.dart';
 
 class Book {
-  final String id;
-  final String title;
-  final String author;
-  final String series;
-  final String note;
-  final DateTime dateLastEdition;
-  final DateTime dateAdded;
-  final ReadingState readingState;
-  final Genre genre;
+  String id;
+  String title;
+  String author;
+  String series;
+  String note;
+  Genre genre;
+  DateTime dateLastEdition;
+  DateTime dateAdded;
+  ReadingState readingState;
 
   Book({
     @required this.id,
@@ -20,8 +21,8 @@ class Book {
     this.note = '',
     @required this.dateLastEdition,
     @required this.dateAdded,
-    this.readingState = ReadingState.Read,
-    this.genre = Genre.Other,
+    @required this.readingState,
+    @required this.genre,
   });
 
   @override

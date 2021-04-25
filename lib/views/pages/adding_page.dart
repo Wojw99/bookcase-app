@@ -1,55 +1,246 @@
 import 'package:bookcase_app/utils/colors.dart';
+import 'package:bookcase_app/utils/enums.dart';
 import 'package:bookcase_app/utils/strings.dart';
+import 'package:bookcase_app/viewmodels/adding_vm.dart';
+import 'package:bookcase_app/views/view_helper.dart';
+import 'package:bookcase_app/views/widgets/my_dropdown_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AddingPage extends StatelessWidget {
+  Color getButtonColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return kColorMainAccent;
+    }
+    return kColorMain;
+  }
+
+  Color getButtonTextColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return kColorDark;
+    }
+    return kColorDark;
+  }
+
+  Color getButtonDateColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return kColorTextDark;
+    }
+    return kColorTextLight;
+  }
+
+  Color getButtonDateTextColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return kColorDark;
+    }
+    return kColorDark;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _viewModel = Provider.of<AddingViewModel>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         title: Text(kAppTitle),
         elevation: 0.0,
         backgroundColor: kColorDark,
       ),
-      body: Container(
-        color: kColorDark,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Title',
-                style: kHeaderStyle,
-              ),
-              SizedBox(height: 8.0),
-              TextField(
-                decoration: InputDecoration(
-                  border: border,
-                  focusedBorder: focusedBorder,
-                  hintText: 'ex. The Old Man and the Sea',
+      body: SingleChildScrollView(
+        child: Container(
+          color: kColorDark,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                /// * * * TITLE * * *
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  ),
+                  child: Text(
+                    kTitle,
+                    style: kHeaderStyle,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                  top: topPadding,
-                  bottom: bottomPadding,
+                TextField(
+                  decoration: InputDecoration(
+                    border: border,
+                    focusedBorder: focusedBorder,
+                    hintText: kAddingTitleHint,
+                  ),
+                  onChanged: (value) {
+                    _viewModel.setTitle(value);
+                  },
                 ),
-                child: Text(
-                  'Author',
-                  style: kHeaderStyle,
+
+                /// * * * AUTHOR * * *
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  ),
+                  child: Text(
+                    kAuthor,
+                    style: kHeaderStyle,
+                  ),
                 ),
-              ),
-              TextField(
-                decoration: InputDecoration(
-                  border: border,
-                  focusedBorder: focusedBorder,
-                  hintText: 'ex. Ernest Hemingway',
+                TextField(
+                  decoration: InputDecoration(
+                    border: border,
+                    focusedBorder: focusedBorder,
+                    hintText: kAddingAuthorHint,
+                  ),
+                  onChanged: (value) {
+                    _viewModel.setAuthor(value);
+                  },
                 ),
-              )
-            ],
+
+                /// * * * GENRE * * *
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  ),
+                  child: Text(
+                    kGenre,
+                    style: kHeaderStyle,
+                  ),
+                ),
+                MyDropdownButton(
+                  value: _viewModel.addingBook.genre.toString(),
+                  onChanged: (value) {
+                    _viewModel.setGenre(value);
+                  },
+                  itemList: _viewModel.genresNames,
+                ),
+
+                /// * * * READING STATE * * *
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  ),
+                  child: Text(
+                    kReadingState,
+                    style: kHeaderStyle,
+                  ),
+                ),
+                MyDropdownButton(
+                  value: _viewModel.addingBook.readingState.toString(),
+                  onChanged: (value) {
+                    _viewModel.setReadingState(value);
+                  },
+                  itemList: _viewModel.readingStatesNames,
+                ),
+
+                /// * * * DATE * * *
+                Visibility(
+                  visible: _viewModel.dateVisible,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: topPadding,
+                      bottom: bottomPadding,
+                    ),
+                    child: Text(
+                      kDateReading,
+                      style: kHeaderStyle,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: _viewModel.dateVisible,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(),
+                        firstDate: DateTime.utc(2020, 1, 1),
+                        lastDate: DateTime.now(),
+                      ).then((value) => _viewModel.setDate(value));
+                    },
+                    child: Text(
+                      ViewHelper.getTextForDateTime(
+                        _viewModel.addingBook.dateLastEdition,
+                        showYear: true,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.resolveWith(getButtonDateColor),
+                      foregroundColor: MaterialStateProperty.resolveWith(
+                          getButtonDateTextColor),
+                    ),
+                  ),
+                ),
+
+                /// * * * NOTE * * *
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  ),
+                  child: Text(
+                    kNote,
+                    style: kHeaderStyle,
+                  ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: border,
+                    focusedBorder: focusedBorder,
+                    hintText: kAddingNoteHint,
+                  ),
+                  onChanged: (value) {
+                    _viewModel.setNote(value);
+                  },
+                ),
+
+                SizedBox(height: topPadding * 2),
+
+                /// * * * ADD BUTTON * * *
+                ElevatedButton(
+                  onPressed: () {
+                    _viewModel.addBook();
+                    Navigator.pop(context);
+                  },
+                  child: Text(kAddBook),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.resolveWith(getButtonColor),
+                    foregroundColor:
+                        MaterialStateProperty.resolveWith(getButtonTextColor),
+                  ),
+                ),
+
+                SizedBox(height: bottomPadding * 2),
+
+                /// * * * COLUMN END * * *
+              ],
+            ),
           ),
         ),
       ),

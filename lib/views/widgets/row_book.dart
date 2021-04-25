@@ -1,6 +1,6 @@
 import 'package:bookcase_app/utils/colors.dart';
-import 'package:bookcase_app/utils/enums.dart';
 import 'package:bookcase_app/utils/strings.dart';
+import 'package:bookcase_app/utils/types/genre.dart';
 import 'package:bookcase_app/views/view_helper.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,7 +9,7 @@ class BookRow extends StatelessWidget {
   final String series;
   final String author;
   final DateTime date;
-  final Genre genre;
+  final String imgSource;
 
   // for inside and outside padding
   static const paddingNumber = 10.0;
@@ -19,7 +19,7 @@ class BookRow extends StatelessWidget {
     @required this.series,
     @required this.author,
     @required this.date,
-    @required this.genre,
+    @required this.imgSource,
   });
 
   @override
@@ -41,7 +41,7 @@ class BookRow extends StatelessWidget {
               Row(
                 children: [
                   Image.asset(
-                    ViewHelper.getImgSourceForGenre(genre),
+                    imgSource,
                     height: 24.0,
                   ),
                   SizedBox(width: 8.0),
