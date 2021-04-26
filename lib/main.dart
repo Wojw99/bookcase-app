@@ -5,7 +5,9 @@ import 'package:bookcase_app/viewmodels/books_vm.dart';
 import 'package:bookcase_app/viewmodels/menu_vm.dart';
 import 'package:bookcase_app/viewmodels/stats_vm.dart';
 import 'package:bookcase_app/views/pages/books_page.dart';
+import 'package:bookcase_app/views/pages/login_page.dart';
 import 'package:bookcase_app/views/pages/menu_page.dart';
+import 'package:bookcase_app/views/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +31,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<StatsViewModel>(
               create: (_) => StatsViewModel()),
         ],
-        builder: (context, widget) => MenuPage(),
+        builder: (context, widget) => RegisterPage(),
       ),
     );
   }

@@ -31,3 +31,21 @@ const String kGenre = 'Gatunek';
 /// * * * SINGLE BOOK PAGE * * *
 const String kEdit = 'Edytuj';
 const String kRemove = 'Usuń';
+
+/// * * * LOGIN/REGISTER PAGE * * *
+const String kWelcome = 'Witaj!';
+const String kRegisterToContinue = 'Zarejestruj się, aby kontynuować.';
+const String kLoginToContinue = 'Zaloguj się, aby kontynuować.';
+const String kEmail = 'E-mail';
+const String kPassword = 'Hasło';
+const String kPasswordAgain = 'Powtórz hasło';
+const String kEmailHint = 'email@gmail.com';
+const String kPasswordHint = 'Hasło';
+const String kPasswordAgainHint = 'Powtórz hasło';
+const String kRegister = 'Zarejestruj';
+const String kLogin = 'Zaloguj';
+
+const String kWithoutAccount1 = 'Nie masz konta? ';
+const String kWithoutAccount2 = 'Zarejestruj się!';
+const String kWithAccount1 = 'Masz konto? ';
+const String kWithAccount2 = 'Zaloguj się!';
