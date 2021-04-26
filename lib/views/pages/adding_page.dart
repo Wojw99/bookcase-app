@@ -119,6 +119,28 @@ class AddingPage extends StatelessWidget {
                   },
                 ),
 
+                /// * * * SERIES * * *
+                Padding(
+                  padding: EdgeInsets.only(
+                    top: topPadding,
+                    bottom: bottomPadding,
+                  ),
+                  child: Text(
+                    kSeries,
+                    style: kHeaderStyle,
+                  ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: border,
+                    focusedBorder: focusedBorder,
+                    hintText: kAddingSeriesHint,
+                  ),
+                  onChanged: (value) {
+                    _viewModel.setSeries(value);
+                  },
+                ),
+
                 /// * * * GENRE * * *
                 Padding(
                   padding: EdgeInsets.only(

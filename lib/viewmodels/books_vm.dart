@@ -1,7 +1,9 @@
 import 'package:bookcase_app/utils/test_database.dart';
 import 'package:bookcase_app/models/book.dart';
 import 'package:bookcase_app/utils/types/readingStates.dart';
+import 'package:bookcase_app/viewmodels/single_book_vm.dart';
 import 'package:bookcase_app/views/pages/adding_page.dart';
+import 'package:bookcase_app/views/pages/single_book_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +14,8 @@ class BooksViewModel extends ChangeNotifier {
   List<Book> _books = TestDatabase.books;
   List<Book> get books => getFilteredBooks();
 
-  int _index = 1;
-  int get index => _index;
+  int _tabIndex = 1;
+  int get tabIndex => _tabIndex;
 
   void navigateToAddingPage(BuildContext context) async {
     await Navigator.push(
@@ -28,12 +30,25 @@ class BooksViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void navigateToSingleBookPage(BuildContext context, int bookIndex) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChangeNotifierProvider<SingleBookViewModel>(
+          create: (context) => SingleBookViewModel(books[bookIndex]),
+          builder: (context, widget) => SingleBookPage(),
+        ),
+      ),
+    );
+    notifyListeners();
+  }
+
   List<Book> getFilteredBooks() {
-    if (_index == 0) {
+    if (_tabIndex == 0) {
       return _books
           .where((element) => element.readingState == ReadingStates.abandoned)
           .toList();
-    } else if (_index == 1) {
+    } else if (_tabIndex == 1) {
       return _books
           .where((element) => element.readingState == ReadingStates.ended)
           .toList();
@@ -46,7 +61,7 @@ class BooksViewModel extends ChangeNotifier {
   }
 
   void setIndex(int value) {
-    _index = value;
+    _tabIndex = value;
     notifyListeners();
   }
 

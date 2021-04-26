@@ -8,9 +8,10 @@ const String kStats = 'Statystyki';
 const String kSeriesPrefix = 'Z serii';
 
 /// * * * ADDING PAGE * * *
-const String kAddBook = 'Dodaj';
+const String kAddBook = 'Zapisz';
 const String kAddingTitleHint = 'Np. Stary Człowiek i Morze';
 const String kAddingAuthorHint = 'Np. Ernest Hemingway';
+const String kAddingSeriesHint = 'Np. Koło Czasu';
 const String kAddingNoteHint = 'Np. \"Bardzo mi się podobała\"';
 
 /// * * * GENERAL * * *
@@ -26,3 +27,7 @@ const String kDateAdding = 'Data dodania';
 const String kDateReading = 'Data przeczytania';
 const String kReadingState = 'Status';
 const String kGenre = 'Gatunek';
+
+/// * * * SINGLE BOOK PAGE * * *
+const String kEdit = 'Edytuj';
+const String kRemove = 'Usuń';

@@ -1,1 +1,1 @@
-const paddingNumber = 10.0;
+const kPaddingNumber = 10.0;

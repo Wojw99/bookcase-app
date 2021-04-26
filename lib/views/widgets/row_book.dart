@@ -52,7 +52,7 @@ class BookRow extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ViewHelper.getTextForDateTime(date),
+                    ViewHelper.getTextForDateTime(date, showYear: true),
                     style: kRowHeaderStyle,
                   ),
                 ],

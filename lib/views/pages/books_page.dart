@@ -13,7 +13,7 @@ class BooksPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _viewModel = Provider.of<BooksViewModel>(context, listen: true);
     return DefaultTabController(
-      initialIndex: _viewModel.index,
+      initialIndex: _viewModel.tabIndex,
       length: 3,
       child: Scaffold(
         /// * * * * * * APP BAR * * * * * *
@@ -47,18 +47,23 @@ class BooksPage extends StatelessWidget {
             itemCount: _viewModel.books.length,
             itemBuilder: (context, index) {
               final book = _viewModel.books[index];
-              return BookRow(
-                title: book.title,
-                series: book.series,
-                author: book.author,
-                date: book.dateLastEdition,
-                imgSource: ViewHelper.getImgSourceForGenre(book.genre),
+              return GestureDetector(
+                onTap: () {
+                  _viewModel.navigateToSingleBookPage(context, index);
+                },
+                child: BookRow(
+                  title: book.title,
+                  series: book.series,
+                  author: book.author,
+                  date: book.dateLastEdition,
+                  imgSource: ViewHelper.getImgSourceForGenre(book.genre),
+                ),
               );
             },
           ),
         ),
 
-        /// * * * * * * F BUTTON * * * * * *
+        /// * * * * * * FAB BUTTON * * * * * *
         floatingActionButton: Padding(
           padding: EdgeInsets.all(16.0),
           child: FloatingActionButton(

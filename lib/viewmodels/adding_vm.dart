@@ -35,6 +35,11 @@ class AddingViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setSeries(String series) {
+    _addingBook.series = series;
+    notifyListeners();
+  }
+
   void setNote(String note) {
     _addingBook.note = note;
     notifyListeners();
