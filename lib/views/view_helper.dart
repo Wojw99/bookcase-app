@@ -18,8 +18,10 @@ class ViewHelper {
       return 'assets/img/i_sword.png';
     else if (genre == Genres.horror)
       return 'assets/img/i_thriller.png';
+    else if (genre == Genres.popularScience)
+      return 'assets/img/i_popular_science.png';
     else // (genre == Genre.Other)
-      return 'assets/img/i_thriller.png';
+      return 'assets/img/i_other.png';
   }
 
   /// Function formats DateTime and returns String adequate to format dd.MM

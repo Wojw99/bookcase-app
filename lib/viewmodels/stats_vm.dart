@@ -54,6 +54,11 @@ class StatsViewModel extends ChangeNotifier {
     // notifyListeners();
   }
 
+  void initialize() {
+    createBarData();
+    notifyListeners();
+  }
+
   void setReadingState(String state) {
     _selectedState = state;
     createBarData();

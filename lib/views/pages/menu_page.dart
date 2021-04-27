@@ -2,6 +2,7 @@ import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/adding_vm.dart';
 import 'package:bookcase_app/viewmodels/menu_vm.dart';
+import 'package:bookcase_app/viewmodels/stats_vm.dart';
 import 'package:bookcase_app/views/pages/books_page.dart';
 import 'package:bookcase_app/views/pages/stats_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,6 +18,7 @@ class MenuPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _viewModel = Provider.of<MenuViewModel>(context, listen: true);
+    final _statsViewModel = Provider.of<StatsViewModel>(context, listen: true);
     return Scaffold(
       /// * * * * * * BODY * * * * * *
       body: pages[_viewModel.currentIndex],
@@ -28,6 +30,7 @@ class MenuPage extends StatelessWidget {
         unselectedItemColor: Colors.black54,
         currentIndex: _viewModel.currentIndex,
         onTap: (index) {
+          _statsViewModel.initialize();
           _viewModel.changeIndex(index);
         },
         items: [

@@ -1,8 +1,10 @@
 import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
+import 'package:bookcase_app/viewmodels/login_register_vm.dart';
 import 'package:bookcase_app/views/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
   final double padding = 30.0;
@@ -10,6 +12,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _viewModel =
+        Provider.of<LoginRegisterViewModel>(context, listen: true);
     return Scaffold(
       body: Container(
         color: kColorDark,
@@ -58,6 +62,7 @@ class LoginPage extends StatelessWidget {
 
               /// * * * PASSWORD * * *
               TextField(
+                obscureText: true,
                 decoration: InputDecoration(
                   border: border,
                   focusedBorder: focusedBorder,
@@ -70,7 +75,9 @@ class LoginPage extends StatelessWidget {
 
               /// * * * LOGIN * * *
               MyButton(
-                onPressed: () {},
+                onPressed: () {
+                  _viewModel.navigateToApp(context);
+                },
                 text: kLogin,
                 buttonColor: kColorMain,
                 buttonInteractiveColor: kColorMainAccent,
@@ -79,26 +86,34 @@ class LoginPage extends StatelessWidget {
 
               SizedBox(height: padding),
 
-              /// * * * LOGIN * * *
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    kWithoutAccount1,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: kColorTextLight,
-                    ),
+              /// * * * TO REGISTER * * *
+              GestureDetector(
+                onTap: () {
+                  _viewModel.navigateToRegister(context);
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        kWithoutAccount1,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: kColorTextLight,
+                        ),
+                      ),
+                      Text(
+                        kWithoutAccount2,
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          color: kColorMain,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ],
                   ),
-                  Text(
-                    kWithoutAccount2,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: kColorMain,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
+                ),
               )
 
               /// * * * END OF COLUMN * * *

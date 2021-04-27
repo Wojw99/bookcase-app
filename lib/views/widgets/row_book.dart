@@ -58,14 +58,20 @@ class BookRow extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 4.0),
-              Text(
-                '$kSeriesPrefix \"$series\"',
-                style: kRowParagraphStyle,
+              Visibility(
+                visible: series.isNotEmpty,
+                child: Text(
+                  '$kSeriesPrefix \"$series\"',
+                  style: kRowParagraphStyle,
+                ),
               ),
               SizedBox(height: 4.0),
-              Text(
-                author,
-                style: kRowParagraphStyle,
+              Visibility(
+                visible: author.isNotEmpty,
+                child: Text(
+                  author,
+                  style: kRowParagraphStyle,
+                ),
               ),
             ],
           ),

@@ -3,36 +3,13 @@ import 'package:bookcase_app/utils/enums.dart';
 import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/adding_vm.dart';
 import 'package:bookcase_app/views/view_helper.dart';
+import 'package:bookcase_app/views/widgets/my_button.dart';
 import 'package:bookcase_app/views/widgets/my_dropdown_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddingPage extends StatelessWidget {
-  Color getButtonColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return kColorMainAccent;
-    }
-    return kColorMain;
-  }
-
-  Color getButtonTextColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return kColorDark;
-    }
-    return kColorDark;
-  }
-
   Color getButtonDateColor(Set<MaterialState> states) {
     const Set<MaterialState> interactiveStates = <MaterialState>{
       MaterialState.pressed,
@@ -244,20 +221,16 @@ class AddingPage extends StatelessWidget {
                 SizedBox(height: topPadding * 2),
 
                 /// * * * ADD BUTTON * * *
-                ElevatedButton(
+                MyButton(
                   onPressed: () {
                     _viewModel.addBook();
                     Navigator.pop(context);
                   },
-                  child: Text(kAddBook),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.resolveWith(getButtonColor),
-                    foregroundColor:
-                        MaterialStateProperty.resolveWith(getButtonTextColor),
-                  ),
+                  text: kAddBook,
+                  buttonColor: kColorMain,
+                  buttonInteractiveColor: kColorMainAccent,
+                  textColor: kColorDark,
                 ),
-
                 SizedBox(height: bottomPadding * 2),
 
                 /// * * * COLUMN END * * *
