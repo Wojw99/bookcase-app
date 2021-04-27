@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../view_helper.dart';
+
 class LoginPage extends StatelessWidget {
   final double padding = 30.0;
   final double textFieldSpace = 10.0;
@@ -57,6 +59,9 @@ class LoginPage extends StatelessWidget {
                   labelStyle: labelStyle,
                   hintText: kEmailHint,
                 ),
+                onChanged: (value) {
+                  _viewModel.email = value;
+                },
               ),
               SizedBox(height: textFieldSpace),
 
@@ -70,13 +75,23 @@ class LoginPage extends StatelessWidget {
                   labelStyle: labelStyle,
                   hintText: kPasswordHint,
                 ),
+                onChanged: (value) {
+                  _viewModel.password = value;
+                },
               ),
               SizedBox(height: textFieldSpace),
 
               /// * * * LOGIN * * *
               MyButton(
-                onPressed: () {
-                  _viewModel.navigateToApp(context);
+                onPressed: () async {
+                  try {
+                    await _viewModel.login(context);
+                  } catch (e) {
+                    ViewHelper.showCustomSnackBar(
+                      context: context,
+                      text: e.toString(),
+                    );
+                  }
                 },
                 text: kLogin,
                 buttonColor: kColorMain,

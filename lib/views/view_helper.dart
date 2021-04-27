@@ -1,6 +1,8 @@
+import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/enums.dart';
 import 'package:bookcase_app/utils/types/genre.dart';
 import 'package:bookcase_app/utils/types/genres.dart';
+import 'package:flutter/material.dart';
 
 /// Class stores helpful methods for building UI.
 class ViewHelper {
@@ -37,5 +39,19 @@ class ViewHelper {
       return '$day.$month.$year';
     else
       return '$day.$month';
+  }
+
+  static void showCustomSnackBar({BuildContext context, String text}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          text,
+          style: TextStyle(
+            color: kColorDark,
+          ),
+        ),
+        backgroundColor: kColorMain,
+      ),
+    );
   }
 }

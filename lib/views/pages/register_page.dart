@@ -1,7 +1,9 @@
 import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/login_register_vm.dart';
+import 'package:bookcase_app/views/view_helper.dart';
 import 'package:bookcase_app/views/widgets/my_button.dart';
+import 'package:bookcase_app/views/widgets/my_snack_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,6 +59,9 @@ class RegisterPage extends StatelessWidget {
                   labelStyle: labelStyle,
                   hintText: kEmailHint,
                 ),
+                onChanged: (value) {
+                  _viewModel.email = value;
+                },
               ),
               SizedBox(height: textFieldSpace),
 
@@ -70,6 +75,9 @@ class RegisterPage extends StatelessWidget {
                   labelStyle: labelStyle,
                   hintText: kPasswordHint,
                 ),
+                onChanged: (value) {
+                  _viewModel.password = value;
+                },
               ),
               SizedBox(height: textFieldSpace),
 
@@ -83,13 +91,23 @@ class RegisterPage extends StatelessWidget {
                   labelStyle: labelStyle,
                   hintText: kPasswordAgainHint,
                 ),
+                onChanged: (value) {
+                  _viewModel.passwordRepeat = value;
+                },
               ),
               SizedBox(height: padding),
 
               /// * * * REGISTER * * *
               MyButton(
-                onPressed: () {
-                  _viewModel.navigateToApp(context);
+                onPressed: () async {
+                  try {
+                    await _viewModel.register(context);
+                  } catch (e) {
+                    ViewHelper.showCustomSnackBar(
+                      context: context,
+                      text: e.toString(),
+                    );
+                  }
                 },
                 text: kRegister,
                 buttonColor: kColorMain,

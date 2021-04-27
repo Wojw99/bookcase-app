@@ -15,6 +15,14 @@ dependencies:
   provider: ^5.0.0
   # To draw charts
   fl_chart: ^0.35.0
+  # Firebase core
+  firebase_core: ^1.1.0
+  # Firestore
+  cloud_firestore: ^1.0.7
+  # Authentication
+  firebase_auth: ^1.1.2
+  # Toast
+  fluttertoast: ^8.0.6
 
 dev_dependencies:
   flutter_test:
