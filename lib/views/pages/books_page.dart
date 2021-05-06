@@ -1,7 +1,9 @@
+import 'package:bookcase_app/models/book.dart';
 import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/books_vm.dart';
 import 'package:bookcase_app/views/widgets/row_book.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +14,8 @@ class BooksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _viewModel = Provider.of<BooksViewModel>(context, listen: true);
+    final _allBooks = Provider.of<List<Book>>(context, listen: true);
+    final _filteredBooks = _viewModel.getFilteredBooks(_allBooks);
     return DefaultTabController(
       initialIndex: _viewModel.tabIndex,
       length: 3,
@@ -44,12 +48,13 @@ class BooksPage extends StatelessWidget {
         body: Container(
           color: kColorDark,
           child: ListView.builder(
-            itemCount: _viewModel.books.length,
+            itemCount: _filteredBooks.length,
             itemBuilder: (context, index) {
-              final book = _viewModel.books[index];
+              final book = _filteredBooks[index];
               return GestureDetector(
                 onTap: () {
-                  _viewModel.navigateToSingleBookPage(context, index);
+                  _viewModel.navigateToSingleBookPage(
+                      context, _filteredBooks[index]);
                 },
                 child: BookRow(
                   title: book.title,

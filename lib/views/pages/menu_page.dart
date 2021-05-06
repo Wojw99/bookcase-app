@@ -1,3 +1,4 @@
+import 'package:bookcase_app/models/book.dart';
 import 'package:bookcase_app/utils/colors.dart';
 import 'package:bookcase_app/utils/strings.dart';
 import 'package:bookcase_app/viewmodels/adding_vm.dart';
@@ -19,6 +20,7 @@ class MenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _viewModel = Provider.of<MenuViewModel>(context, listen: true);
     final _statsViewModel = Provider.of<StatsViewModel>(context, listen: true);
+    final _books = Provider.of<List<Book>>(context, listen: true);
     return Scaffold(
       /// * * * * * * BODY * * * * * *
       body: pages[_viewModel.currentIndex],
@@ -30,7 +32,7 @@ class MenuPage extends StatelessWidget {
         unselectedItemColor: Colors.black54,
         currentIndex: _viewModel.currentIndex,
         onTap: (index) {
-          _statsViewModel.initialize();
+          _statsViewModel.initialize(_books);
           _viewModel.changeIndex(index);
         },
         items: [

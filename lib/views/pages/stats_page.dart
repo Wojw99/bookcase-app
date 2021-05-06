@@ -79,18 +79,6 @@ class StatsPage extends StatelessWidget {
                           ))
                       .toList(),
                 ),
-                // ListView.builder(
-                //   itemCount: _viewModel.barDataList.length,
-                //   itemBuilder: (context, index) {
-                //     final data = _viewModel.barDataList[index];
-                //     return ProgressBar(
-                //       value: data.value,
-                //       label: data.title,
-                //       barMaxWidth: 300,
-                //       filledColor: kColorMain,
-                //     );
-                //   },
-                // ),
               ),
             ],
           ),

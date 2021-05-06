@@ -1,5 +1,4 @@
 import 'package:bookcase_app/models/book.dart';
-import 'package:bookcase_app/utils/test_database.dart';
 import 'package:bookcase_app/utils/types/bar_data.dart';
 import 'package:bookcase_app/utils/types/genres.dart';
 import 'package:bookcase_app/utils/types/readingStates.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 class StatsViewModel extends ChangeNotifier {
   /// List of all books
-  List<Book> _books = TestDatabase.books;
+  List<Book> _books;
 
   /// State titles in the dropdown button
   List<String> _stateTitles =
@@ -50,11 +49,10 @@ class StatsViewModel extends ChangeNotifier {
         _barDataList.add(BarData(title: g.name, value: matching.length));
       }
     }
-
-    // notifyListeners();
   }
 
-  void initialize() {
+  void initialize(List<Book> books) {
+    _books = books;
     createBarData();
     notifyListeners();
   }

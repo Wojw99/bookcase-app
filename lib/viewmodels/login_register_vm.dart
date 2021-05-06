@@ -1,3 +1,5 @@
+import 'package:bookcase_app/models/book.dart';
+import 'package:bookcase_app/repositories/book_repository.dart';
 import 'package:bookcase_app/repositories/user_repository.dart';
 import 'package:bookcase_app/viewmodels/stats_vm.dart';
 import 'package:bookcase_app/views/pages/login_page.dart';
@@ -15,7 +17,7 @@ import 'menu_vm.dart';
 class LoginRegisterViewModel extends ChangeNotifier {
   final _userRepository = UserRepository();
 
-  String _email = '';
+  String _email = 'j';
   String get email => _email;
   set email(String value) {
     _email = value;
@@ -38,8 +40,9 @@ class LoginRegisterViewModel extends ChangeNotifier {
 
   Future<void> login(BuildContext context) async {
     try {
-      final userCredential =
-          await _userRepository.signInWithEmailAndPassword(email, password);
+      // final userCredential = await _userRepository.signInWithEmailAndPassword(email, password);
+      final userCredential = await _userRepository.signInWithEmailAndPassword(
+          'jan@gmail.com', 'Zaq12wsx');
       navigateToApp(context);
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
@@ -98,10 +101,19 @@ class LoginRegisterViewModel extends ChangeNotifier {
                 create: (_) => BooksViewModel()),
             ChangeNotifierProvider<StatsViewModel>(
                 create: (_) => StatsViewModel()),
+            StreamProvider<List<Book>>(
+              create: (_) => streamOfBooks(),
+              initialData: [],
+            )
           ],
           builder: (context, widget) => MenuPage(),
         ),
       ),
     );
+  }
+
+  Stream<List<Book>> streamOfBooks() {
+    var repo = BookRepository();
+    return repo.books();
   }
 }

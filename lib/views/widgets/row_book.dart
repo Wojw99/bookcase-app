@@ -53,7 +53,7 @@ class BookRow extends StatelessWidget {
                   ),
                   Text(
                     ViewHelper.getTextForDateTime(date, showYear: true),
-                    style: kRowHeaderStyle,
+                    style: kRowDateStyle,
                   ),
                 ],
               ),
@@ -90,5 +90,11 @@ const kRowParagraphStyle = TextStyle(
 const kRowHeaderStyle = TextStyle(
   fontSize: 16.0,
   fontWeight: FontWeight.bold,
+  color: kColorTextLight,
+);
+
+const kRowDateStyle = TextStyle(
+  fontSize: 16.0,
+  fontWeight: FontWeight.normal,
   color: kColorTextLight,
 );

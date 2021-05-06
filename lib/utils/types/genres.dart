@@ -1,35 +1,35 @@
 import 'genre.dart';
 
 class Genres {
-  static get highFantasy => Genre(
+  static Genre get highFantasy => Genre(
         name: 'High Fantasy',
         number: 0,
       );
-  static get lightFantasy => Genre(
+  static Genre get lightFantasy => Genre(
         name: 'Light Fantasy',
         number: 1,
       );
-  static get urbanFantasy => Genre(
+  static Genre get urbanFantasy => Genre(
         name: 'Urban Fantasy',
         number: 2,
       );
-  static get horror => Genre(
+  static Genre get horror => Genre(
         name: 'Horror',
         number: 3,
       );
-  static get sciFi => Genre(
+  static Genre get sciFi => Genre(
         name: 'Sci-Fi',
         number: 4,
       );
-  static get popularScience => Genre(
+  static Genre get popularScience => Genre(
         name: 'Popular science',
         number: 5,
       );
-  static get historicalNovel => Genre(
+  static Genre get historicalNovel => Genre(
         name: 'Historical novel',
         number: 6,
       );
-  static get other => Genre(
+  static Genre get other => Genre(
         name: 'Other',
         number: 7,
       );
@@ -45,5 +45,12 @@ class Genres {
       historicalNovel,
       other,
     ];
+  }
+
+  static Genre fromString(String name) {
+    for (Genre genre in listOfGenres()) {
+      if (genre.name == name) return genre;
+    }
+    throw new Exception('Genre with given name does not exists!');
   }
 }

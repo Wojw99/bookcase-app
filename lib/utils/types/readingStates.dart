@@ -13,4 +13,11 @@ class ReadingStates {
       planning,
     ];
   }
+
+  static ReadingState fromString(String name) {
+    for (ReadingState state in listOfStates()) {
+      if (state.name == name) return state;
+    }
+    throw new Exception('State with given name does not exists!');
+  }
 }

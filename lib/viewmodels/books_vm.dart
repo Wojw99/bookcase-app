@@ -1,4 +1,3 @@
-import 'package:bookcase_app/utils/test_database.dart';
 import 'package:bookcase_app/models/book.dart';
 import 'package:bookcase_app/utils/types/readingStates.dart';
 import 'package:bookcase_app/viewmodels/single_book_vm.dart';
@@ -11,9 +10,7 @@ import 'package:provider/provider.dart';
 import 'adding_vm.dart';
 
 class BooksViewModel extends ChangeNotifier {
-  List<Book> _books = TestDatabase.books;
-  List<Book> get books => getFilteredBooks();
-
+  /// Tab index
   int _tabIndex = 1;
   int get tabIndex => _tabIndex;
 
@@ -30,12 +27,12 @@ class BooksViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void navigateToSingleBookPage(BuildContext context, int bookIndex) async {
+  void navigateToSingleBookPage(BuildContext context, Book book) async {
     await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ChangeNotifierProvider<SingleBookViewModel>(
-          create: (context) => SingleBookViewModel(books[bookIndex]),
+          create: (context) => SingleBookViewModel(book),
           builder: (context, widget) => SingleBookPage(),
         ),
       ),
@@ -43,21 +40,26 @@ class BooksViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Book> getFilteredBooks() {
+  List<Book> getFilteredBooks(List<Book> books) {
+    var filtered = [];
+
     if (_tabIndex == 0) {
-      return _books
+      filtered = books
           .where((element) => element.readingState == ReadingStates.abandoned)
           .toList();
     } else if (_tabIndex == 1) {
-      return _books
+      filtered = books
           .where((element) => element.readingState == ReadingStates.ended)
           .toList();
     } else {
       // if(_index == 2)
-      return _books
+      filtered = books
           .where((element) => element.readingState == ReadingStates.planning)
           .toList();
     }
+
+    filtered.sort((a, b) => a.dateAdded.compareTo(b.dateAdded));
+    return filtered.reversed.toList();
   }
 
   void setIndex(int value) {

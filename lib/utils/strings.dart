@@ -24,7 +24,7 @@ const String kAuthor = 'Autor';
 const String kSeries = 'Seria';
 const String kNote = 'Notatka';
 const String kDateAdding = 'Data dodania';
-const String kDateReading = 'Data przeczytania';
+const String kDateReading = 'Data dodania';
 const String kReadingState = 'Status';
 const String kGenre = 'Gatunek';
 
@@ -49,3 +49,13 @@ const String kWithoutAccount1 = 'Nie masz konta? ';
 const String kWithoutAccount2 = 'Zarejestruj się!';
 const String kWithAccount1 = 'Masz konto? ';
 const String kWithAccount2 = 'Zaloguj się!';
+
+/// * * * GENRES * * *
+const String kHighFantasy = 'High fantasy';
+const String kLowFantasy = 'Low fantasy';
+const String kUrbanFantasy = 'Urban fantasy';
+const String kHorror = 'Horror';
+const String kSciFi = 'Sci-fi';
+const String kPopularScience = 'Popularnonaukowa';
+const String kHistoricalNovel = 'Powieść historyczna';
+const String kOther = 'Inne';

@@ -1,4 +1,5 @@
 import 'package:bookcase_app/models/book.dart';
+import 'package:bookcase_app/repositories/book_repository.dart';
 import 'package:bookcase_app/utils/test_database.dart';
 import 'package:bookcase_app/utils/types/genre.dart';
 import 'package:bookcase_app/utils/types/genres.dart';
@@ -6,14 +7,23 @@ import 'package:bookcase_app/utils/types/readingStates.dart';
 import 'package:flutter/cupertino.dart';
 
 class AddingViewModel extends ChangeNotifier {
+  /// Genre list
   List<String> _genresNames =
       Genres.listOfGenres().map((e) => e.toString()).toList();
   List<String> get genresNames => _genresNames;
 
+  /// ReadingState list
   List<String> _readingStatesNames =
       ReadingStates.listOfStates().map((e) => e.toString()).toList();
   List<String> get readingStatesNames => _readingStatesNames;
 
+  /// If should be updated
+  bool update = false;
+
+  /// Repository
+  final _bookRepository = BookRepository();
+
+  /// Book to add
   Book _addingBook = Book(
     id: 'id',
     dateLastEdition: DateTime.now(),
@@ -23,7 +33,14 @@ class AddingViewModel extends ChangeNotifier {
   );
   Book get addingBook => _addingBook;
 
-  bool get dateVisible => _addingBook.readingState == ReadingStates.ended;
+  /// Date is visible
+  bool get dateVisible =>
+      true; //_addingBook.readingState == ReadingStates.ended;
+
+  void initializeWithBook(Book book) {
+    _addingBook = book;
+    notifyListeners();
+  }
 
   void setTitle(String title) {
     _addingBook.title = title;
@@ -65,9 +82,12 @@ class AddingViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  /// Add to database
+  /// Add to database (or update)
   void addBook() {
-    print(addingBook.toString());
-    TestDatabase.books.add(addingBook);
+    if (update) {
+      _bookRepository.updateBook(addingBook);
+    } else {
+      _bookRepository.addNewBook(addingBook);
+    }
   }
 }

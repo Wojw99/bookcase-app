@@ -10,30 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddingPage extends StatelessWidget {
-  Color getButtonDateColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return kColorTextDark;
-    }
-    return kColorTextLight;
-  }
-
-  Color getButtonDateTextColor(Set<MaterialState> states) {
-    const Set<MaterialState> interactiveStates = <MaterialState>{
-      MaterialState.pressed,
-      MaterialState.hovered,
-      MaterialState.focused,
-    };
-    if (states.any(interactiveStates.contains)) {
-      return kColorDark;
-    }
-    return kColorDark;
-  }
-
   @override
   Widget build(BuildContext context) {
     final _viewModel = Provider.of<AddingViewModel>(context, listen: true);
@@ -63,15 +39,14 @@ class AddingPage extends StatelessWidget {
                     style: kHeaderStyle,
                   ),
                 ),
-                TextField(
+                TextFormField(
+                  initialValue: _viewModel.addingBook.title,
                   decoration: InputDecoration(
                     border: border,
                     focusedBorder: focusedBorder,
                     hintText: kAddingTitleHint,
                   ),
-                  onChanged: (value) {
-                    _viewModel.setTitle(value);
-                  },
+                  onChanged: _viewModel.setTitle,
                 ),
 
                 /// * * * AUTHOR * * *
@@ -85,7 +60,8 @@ class AddingPage extends StatelessWidget {
                     style: kHeaderStyle,
                   ),
                 ),
-                TextField(
+                TextFormField(
+                  initialValue: _viewModel.addingBook.author,
                   decoration: InputDecoration(
                     border: border,
                     focusedBorder: focusedBorder,
@@ -107,7 +83,8 @@ class AddingPage extends StatelessWidget {
                     style: kHeaderStyle,
                   ),
                 ),
-                TextField(
+                TextFormField(
+                  initialValue: _viewModel.addingBook.series,
                   decoration: InputDecoration(
                     border: border,
                     focusedBorder: focusedBorder,
@@ -207,7 +184,8 @@ class AddingPage extends StatelessWidget {
                     style: kHeaderStyle,
                   ),
                 ),
-                TextField(
+                TextFormField(
+                  initialValue: _viewModel.addingBook.note,
                   decoration: InputDecoration(
                     border: border,
                     focusedBorder: focusedBorder,
@@ -240,6 +218,30 @@ class AddingPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color getButtonDateColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return kColorTextDark;
+    }
+    return kColorTextLight;
+  }
+
+  Color getButtonDateTextColor(Set<MaterialState> states) {
+    const Set<MaterialState> interactiveStates = <MaterialState>{
+      MaterialState.pressed,
+      MaterialState.hovered,
+      MaterialState.focused,
+    };
+    if (states.any(interactiveStates.contains)) {
+      return kColorDark;
+    }
+    return kColorDark;
   }
 }
 

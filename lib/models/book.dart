@@ -1,5 +1,8 @@
 import 'package:bookcase_app/utils/types/genre.dart';
+import 'package:bookcase_app/utils/types/genres.dart';
 import 'package:bookcase_app/utils/types/readingState.dart';
+import 'package:bookcase_app/utils/types/readingStates.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 
 class Book {
@@ -55,5 +58,31 @@ class Book {
     return 'Book { id: $id, title: $title, author: $author, '
         'series: $series, note: $note, last edition: $dateLastEdition, '
         'added date: $dateAdded, readingState: $readingState';
+  }
+
+  static Book fromSnapshot(DocumentSnapshot snap) {
+    return Book(
+      id: snap.id,
+      title: snap.data()['title'],
+      author: snap.data()['author'],
+      dateLastEdition: (snap.data()['date'] as Timestamp).toDate(),
+      dateAdded: (snap.data()['date'] as Timestamp).toDate(),
+      genre: Genres.fromString(snap.data()['genre']),
+      readingState: ReadingStates.fromString(snap.data()['state']),
+      series: snap.data()['series'],
+      note: snap.data()['note'],
+    );
+  }
+
+  Map<String, Object> toDocument() {
+    return {
+      'author': author,
+      'date': Timestamp.fromDate(dateAdded),
+      'genre': genre.name,
+      'note': note,
+      'series': series,
+      'state': readingState.name,
+      'title': title,
+    };
   }
 }
