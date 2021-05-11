@@ -23,6 +23,10 @@ dependencies:
   firebase_auth: ^1.1.2
   # Toast
   fluttertoast: ^8.0.6
+  # Save and read data in SharedPreferences (Android) or NSUserDefaults (IOS)
+  shared_preferences: ^2.0.5
+  # Mock
+  mockito: ^5.0.7
 
 dev_dependencies:
   flutter_test:

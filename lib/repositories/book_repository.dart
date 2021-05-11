@@ -22,4 +22,10 @@ class BookRepository {
       return snapshot.docs.map((doc) => Book.fromSnapshot(doc)).toList();
     });
   }
+
+  Future<Book> getBook(String bookID) async {
+    Map<String, dynamic> data =
+        (await booksCollection.doc(bookID).get()).data();
+    return Book.fromJson(data, bookID);
+  }
 }

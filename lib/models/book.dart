@@ -85,4 +85,17 @@ class Book {
       'title': title,
     };
   }
+
+  static Book fromJson(Map<String, Object> json, String id) {
+    return Book(
+      id: id,
+      dateLastEdition: json['date'],
+      dateAdded: json['date'],
+      readingState: json['state'],
+      genre: json['genre'],
+      note: json['note'],
+      series: json['series'],
+      title: json['title'],
+    );
+  }
 }

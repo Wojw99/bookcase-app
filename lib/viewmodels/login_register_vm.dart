@@ -1,6 +1,7 @@
 import 'package:bookcase_app/models/book.dart';
 import 'package:bookcase_app/repositories/book_repository.dart';
 import 'package:bookcase_app/repositories/user_repository.dart';
+import 'package:bookcase_app/services/shared_pref_service.dart';
 import 'package:bookcase_app/viewmodels/stats_vm.dart';
 import 'package:bookcase_app/views/pages/login_page.dart';
 import 'package:bookcase_app/views/pages/menu_page.dart';
@@ -8,7 +9,6 @@ import 'package:bookcase_app/views/pages/register_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import 'books_vm.dart';
@@ -40,9 +40,9 @@ class LoginRegisterViewModel extends ChangeNotifier {
 
   Future<void> login(BuildContext context) async {
     try {
-      // final userCredential = await _userRepository.signInWithEmailAndPassword(email, password);
-      final userCredential = await _userRepository.signInWithEmailAndPassword(
-          'jan@gmail.com', 'Zaq12wsx');
+      final userCredential =
+          await _userRepository.signInWithEmailAndPassword(email, password);
+
       navigateToApp(context);
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
@@ -56,6 +56,7 @@ class LoginRegisterViewModel extends ChangeNotifier {
     try {
       final userCredential =
           await _userRepository.createUserWithEmailAndPassword(email, password);
+
       navigateToApp(context);
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message);
